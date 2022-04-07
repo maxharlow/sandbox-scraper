@@ -1,0 +1,19 @@
+{
+    "name": "sandbox-scraper",
+    "type": "module",
+    "private": true,
+    "dependencies": {
+        "axios": "0.27.x",
+        "cheerio": "1.0.0-rc.10",
+        "fs-extra": "10.1.x",
+        "papaparse": "5.3.x",
+        "react": "18.1.x",
+        "react-dom": "18.1.x",
+        "scramjet": "4.36.x",
+        "yaml": "2.0.x",
+        "zod": "3.15.x"
+    },
+    "scripts": {
+        "start": "node server"
+    }
+}

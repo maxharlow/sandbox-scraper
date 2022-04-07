@@ -1,0 +1,12 @@
+url: https://www.bbc.co.uk/news
+
+rowSelector: .gs-c-promo
+
+columnSelectors:
+
+    - title: headline
+      selector: h3
+
+    - title: url
+      selector: a
+      attribute: href
