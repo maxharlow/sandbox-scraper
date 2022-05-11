@@ -30,7 +30,12 @@ function validate(config) {
 async function run(config) {
     validate(config)
     console.log(`Running new scrape at ${new Date().toISOString()}...`)
-    const response = await Axios.get(config.url)
+    const response = await Axios({
+        url: config.url,
+        headers: {
+            'user-agent': 'sandbox-scraper'
+        }
+    })
     const document = Cheerio.load(response.data)
     const rows = document(config.rowSelector).get()
     return {
