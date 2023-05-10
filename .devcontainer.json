@@ -1,0 +1,3 @@
+{
+    "postStartCommand": "nohup bash -c 'npm start &'"
+}
