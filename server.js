@@ -20,12 +20,16 @@ function run() {
             try {
                 const data = await scrape()
                 const html = ReactDOMServer.renderToStaticMarkup(React.createElement(tablePage, { data }))
+                response.statusCode = 200
+                response.setHeader('Content-Type', 'text/html')
                 response.write(html)
             }
             catch (e) {
                 const message = e.message
                 console.log(`Error: ${message}`)
                 const html = ReactDOMServer.renderToStaticMarkup(React.createElement(errorPage, { message }))
+                response.statusCode = 500
+                response.setHeader('Content-Type', 'text/html')
                 response.write(html)
             }
         }
@@ -36,12 +40,19 @@ function run() {
                     fields: data.headers,
                     data: data.rows
                 })
+                response.statusCode = 200
+                response.setHeader('Content-Type', 'text/csv')
                 response.write(csv)
             }
             catch (e) {
                 const message = e.message
+                response.statusCode = 500
+                response.setHeader('Content-Type', 'text/plain')
                 response.write(message)
             }
+        }
+        else {
+            response.statusCode = 404
         }
         response.end()
     })
