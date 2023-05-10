@@ -5,7 +5,8 @@ import ReactDOMServer from 'react-dom/server'
 import FSExtra from 'fs-extra'
 import Yaml from 'yaml'
 import scraper from './scraper.js'
-import page from './page.js'
+import tablePage from './table-page.js'
+import errorPage from './error-page.js'
 
 async function scrape() {
     const configfile = await FSExtra.readFile('config.yaml', 'utf8')
@@ -16,17 +17,31 @@ async function scrape() {
 function run() {
     const server = HTTP.createServer(async (request, response) => {
         if (request.url === '/') {
-            const data = await scrape()
-            const html = ReactDOMServer.renderToStaticMarkup(React.createElement(page, { data }))
-            response.write(html)
+            try {
+                const data = await scrape()
+                const html = ReactDOMServer.renderToStaticMarkup(React.createElement(tablePage, { data }))
+                response.write(html)
+            }
+            catch (e) {
+                const message = e.message
+                console.log(`Error: ${message}`)
+                const html = ReactDOMServer.renderToStaticMarkup(React.createElement(errorPage, { message }))
+                response.write(html)
+            }
         }
         else if (request.url === '/csv') {
-            const data = await scrape()
-            const csv = Papaparse.unparse({
-                fields: data.headers,
-                data: data.rows
-            })
-            response.write(csv)
+            try {
+                const data = await scrape()
+                const csv = Papaparse.unparse({
+                    fields: data.headers,
+                    data: data.rows
+                })
+                response.write(csv)
+            }
+            catch (e) {
+                const message = e.message
+                response.write(message)
+            }
         }
         response.end()
     })
