@@ -1,6 +1,9 @@
 Sandbox Scraper
 ===============
 
-[Create a new Sandbox Scraper](https://codesandbox.io/s/github/maxharlow/sandbox-scraper)
+A simple scraper suited for running in online development environments.
 
-Edit `config.yaml` to get started.
+* [Start on CodeSandbox](https://codesandbox.io/s/github/maxharlow/sandbox-scraper)
+* [Start on GitHub Codespaces](https://codespaces.new/maxharlow/sandbox-scraper)
+
+Then edit `config.yaml` to get started.
